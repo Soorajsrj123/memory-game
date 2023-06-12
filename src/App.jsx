@@ -11,9 +11,7 @@ const gameIcons = [
   "🐺",
   "🍉",
   "❄️",
-  "🦴",
-  "🏀",
-  "🎂",
+
 ];
 function App() {
   const [pieces, setPieces] = useState([]);
@@ -109,7 +107,7 @@ function App() {
   return (
     <>
       <main>
-        <h2>Memory Game</h2>
+        <h2 className="animate-charcter" >Memory Game</h2>
         <div className="container">
           {pieces.map((icon, index) => (
             <div
