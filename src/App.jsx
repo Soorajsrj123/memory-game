@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Confetti from 'react-confetti'
-const gameIcons = [
-  "🗽",
-  "🗼",
-  "🤖",
-  "👽",
-  "👀",
-  "🐵",
-  "🐺",
-  "🍉",
-  "❄️",
+import Confetti from "react-confetti";
+const gameIcons = ["🗽", "🗼", "🤖", "👽", "👀", "🐵", "🐺", "🍉", "❄️"];
 
-];
 function App() {
+  const [tries, setTries] = useState(40);
   const [pieces, setPieces] = useState([]);
   const [gameComplete, setGameComplete] = useState(false);
+
   const startGame = () => {
     const duplicateGameIcons = [...gameIcons, ...gameIcons];
     // console.log(duplicateGameIcons);
@@ -40,6 +32,7 @@ function App() {
   }, []);
 
   const handleActive = (icon) => {
+    setTries((tries) => tries - 1);
     const flipedData = pieces.filter((data) => data.fliped && !data.solved);
 
     if (flipedData.length === 2) {
@@ -91,7 +84,7 @@ function App() {
   };
 
   const checkGameOver = () => {
-    if (pieces.length >0 && pieces.every((piece) => piece.solved)) {
+    if (pieces.length > 0 && pieces.every((piece) => piece.solved)) {
       setGameComplete(true);
     }
   };
@@ -107,7 +100,8 @@ function App() {
   return (
     <>
       <main>
-        <h2 className="animate-charcter" >Memory Game</h2>
+        <h2 className="animate-charcter">Memory Game</h2>
+        <h5>tries:{tries}</h5>
         <div className="container">
           {pieces.map((icon, index) => (
             <div
@@ -117,21 +111,17 @@ function App() {
             >
               <div className="flip-card-inner">
                 <div className="flip-card-front " />
-
                 <div className="flip-card-back">{icon.emoji}</div>
               </div>
             </div>
           ))}
         </div>
 
-        {
-        gameComplete && (
+        {/* completed animation */}
+        {gameComplete && (
           <div className="completed">
-            <h1 >YOU WIN!!!!</h1>
-            <Confetti
-      width={window.innerWidth}
-      height={window.innerHeight} 
-    />
+            <h1>YOU WIN!!!!</h1>
+            <Confetti width={window.innerWidth} height={window.innerHeight} />
           </div>
         )}
       </main>
